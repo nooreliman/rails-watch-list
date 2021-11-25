@@ -1,0 +1,17 @@
+<%= link_to "Create a new list", new_list_path %>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @lists.each do |list| %>
+      <tr>
+        <td><%= list.id %></td>
+        <td><%= link_to list.name, list_path(list) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
