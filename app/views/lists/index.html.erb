@@ -6,19 +6,10 @@
   </div>
 </div>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Name</th>
-    </tr>
-  </thead>
-  <tbody>
     <% @lists.each do |list| %>
-      <tr>
-        <td><%= list.id %></td>
-        <td><%= link_to list.name, list_path(list) %></td>
-      </tr>
+      <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%= cl_image_path list.photo.key, height: 300, crop: :fill %>')">
+        <%= list.name %>
+      </div>
     <% end %>
-  </tbody>
-</table>
+
+

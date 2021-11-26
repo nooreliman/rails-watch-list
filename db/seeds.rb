@@ -23,8 +23,3 @@ movie_array.each do |movie|
   )
 end
 puts "Done seeding #{Movie.count} movies!"
-
-
-
-
-
