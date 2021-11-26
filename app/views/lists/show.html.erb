@@ -1,20 +1,30 @@
-<h1><%= @list.name %> Movies</h1>
-<%= link_to "Add a new bookmark", new_list_bookmark_path(@list) %>
-
-<div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%= cl_image_path @list.photo.key, height: 300, crop: :fill %>')">
-  <%= @list.name %>
+<% if @list.photo.attached? %>
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= cl_image_path @list.photo.key %>);">
+  <div class="container">
+    <h1><%= @list.name %> movies</h1>
+    <h3><%= pluralize(@list.movies.size, 'movie') %></h3>
+    <%= link_to "Add a bookmark", new_list_bookmark_path(@list), class: "btn btn-flat" %>
+  </div>
 </div>
-
-<h2>Bookmarks</h2>
-  <% @list.bookmarks.each do |bookmark| %>
-    <div class="card" style="width: 18rem;">
-      <img class="card-img-top" src=<%= bookmark.movie.poster_url %> alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title"><%= bookmark.movie.title %></h5>
-        <p class="card-text"><%= bookmark.movie.overview %></p>
-        <%= link_to icon("fas","trash"), bookmark_path(bookmark),
-                  method: :delete,
-                  data: { confirm: "Are you sure?" } %>
-      </div>
+<% else %>
+  <div class="banner">
+    <div class="container">
+      <h1><%= @list.name %> movies</h1>
+      <h3><%= @list.movies.size %></h3>
+      <%= link_to "Add a bookmark", new_list_bookmark_path(@list), class: "btn btn-flat" %>
     </div>
-  <% end %>
+  </div>
+<% end %>
+
+<% @list.bookmarks.each do |bookmark| %>
+<div class="card-product">
+  <img src=<%= bookmark.movie.poster_url %> />
+  <div class="card-product-infos">
+    <h2><%= bookmark.movie.title %> (<%= bookmark.movie.rating %>/10)</h2>
+    <p><%= bookmark.movie.overview %></p>
+    <%= link_to icon("fas","trash"), bookmark_path(bookmark),
+                method: :delete,
+                data: { confirm: "Are you sure?" } %>
+  </div>
+</div>
+<% end %>
